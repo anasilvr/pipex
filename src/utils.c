@@ -6,7 +6,7 @@
 /*   By: anarodri <anarodri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/02 11:48:28 by anarodri          #+#    #+#             */
-/*   Updated: 2022/07/02 15:01:05 by anarodri         ###   ########.fr       */
+/*   Updated: 2022/07/02 15:29:18 by anarodri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,24 +24,6 @@ void	errChild(const char *msg, char *arg)
 	write(2, arg, ft_strlen(arg));
 	write(2, "\n", 1);
 }
-// void	getSrcFD(char *arg, t_info *input)
-// {
-// 	input->fd_src = open(arg, O_RDONLY);
-// 	if (input->fd_src < 0)
-// 		perror(ERR_OPEN);
-// 		// {
-// 		// 	perror(arg);
-// 		// 	input->valid_file = 0;
-// 		// else
-// 		// 	input->valid_file = 1;
-// }
-
-// void	getDstFD(char *arg, t_info *input)
-// {
-// 	input->fd_dst = open(arg, O_CREAT | O_RDWR | O_TRUNC, 0644);
-// 	if (input->fd_dst < 0)
-// 		perror(ERR_OPEN);
-// }
 
 char	*searchPath(char **envp)
 {

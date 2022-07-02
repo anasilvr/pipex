@@ -6,7 +6,7 @@
 /*   By: anarodri <anarodri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/02 11:48:25 by anarodri          #+#    #+#             */
-/*   Updated: 2022/07/02 14:55:00 by anarodri         ###   ########.fr       */
+/*   Updated: 2022/07/02 15:30:42 by anarodri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,13 +77,14 @@ void	freeChild(t_info *data)
 			free(data->cmd1_args[i]);
 		free(data->cmd1_args);
 	}
+	i = 0;
 	if (data->cmd2_args)
 	{
 		while (data->cmd2_args[i++])
 			free(data->cmd2_args[i]);
 		free(data->cmd2_args);
 	}
-	if(data->cmd)
+	//if(data->cmd)
 		free(data->cmd);
 }
 
@@ -97,7 +98,6 @@ void	freeParent(t_info *data)
 		free(data->cmd_path[i]);
 		i++;
 	}
-	free(data->cmd);
 	free(data->cmd_path);
 	close(data->fd_src);
 	close(data->fd_dst);
