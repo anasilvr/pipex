@@ -6,7 +6,7 @@
 /*   By: anarodri <anarodri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/02 11:48:36 by anarodri          #+#    #+#             */
-/*   Updated: 2022/07/02 14:45:17 by anarodri         ###   ########.fr       */
+/*   Updated: 2022/07/03 21:24:31 by anarodri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,8 +45,8 @@ typedef struct s_info
 	char	*envp_PATH;
 	char	*cmd;
 	char	**cmd_path;
-	char	**cmd1_args;
-	char	**cmd2_args;
+	char	**cmd_args;
+//	char	**cmd2_args;
 	pid_t	child1;
 	pid_t	child2;
 	int		status;
@@ -59,10 +59,10 @@ typedef struct s_info
 char	*searchPath(char **envp);
 char	*getCmdPath (char **cmd_path, char *cmd);
 
-void	parseInput(char **argv, char **envp, t_info *data);
-void	initPipex(t_info *data, char **envp);
-void	firstChild(t_info data, char **envp);
-void	secondChild(t_info data, char **envp);
+void	parseEnvp(char **envp, t_info *data);
+void	initPipex(t_info *data, char **argv, char **envp);
+void	firstChild(t_info data, char **argv, char **envp);
+void	secondChild(t_info data, char **argv, char **envp);
 void	freeChild(t_info *data);
 void	freeParent(t_info *data);
 void	errMsg(const char *msg, int n);

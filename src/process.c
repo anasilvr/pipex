@@ -6,13 +6,13 @@
 /*   By: anarodri <anarodri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/02 11:48:25 by anarodri          #+#    #+#             */
-/*   Updated: 2022/07/02 15:30:42 by anarodri         ###   ########.fr       */
+/*   Updated: 2022/07/03 21:21:12 by anarodri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/pipex.h"
 
-void	firstChild(t_info data, char **envp)
+void	firstChild(t_info data, char **argv, char **envp)
 {
 	int	errnum;
 
@@ -21,14 +21,15 @@ void	firstChild(t_info data, char **envp)
 	close(data.end[0]);
 	dup2(data.fd_src, STDIN_FILENO);
 
-	data.cmd = getCmdPath(data.cmd_path, data.cmd1_args[0]);
+	data.cmd_args = ft_split(argv[2], ' ');
+	data.cmd = getCmdPath(data.cmd_path, data.cmd_args[0]);
 
 	if (!data.cmd)
 	{
-		errChild(ERR_CMD, data.cmd1_args[0]);
+		errChild(ERR_CMD, data.cmd_args[0]);
 		errnum = 127;
 	}
-	else if (execve(data.cmd, data.cmd1_args, envp) == -1)
+	else if (execve(data.cmd, data.cmd_args, envp) == -1)
 	{
 		errChild(ERR_CMD, data.cmd);
 		errnum = 127;
@@ -40,7 +41,7 @@ void	firstChild(t_info data, char **envp)
 		exit(errnum);
 }
 
-void	secondChild(t_info data, char **envp)
+void	secondChild(t_info data, char **argv, char **envp)
 {
 	int	errnum;
 
@@ -49,13 +50,15 @@ void	secondChild(t_info data, char **envp)
 	close(data.end[1]);
 	dup2(data.fd_dst, STDOUT_FILENO);
 
-	data.cmd = getCmdPath(data.cmd_path, data.cmd2_args[0]);
+	data.cmd_args = ft_split(argv[3], ' ');
+
+	data.cmd = getCmdPath(data.cmd_path, data.cmd_args[0]);
 	if(!data.cmd)
 	{
-		errChild(ERR_CMD, data.cmd2_args[0]);
+		errChild(ERR_CMD, data.cmd_args[0]);
 		errnum = 127;
 	}
-	else if (execve(data.cmd, data.cmd2_args, envp) == -1)
+	else if (execve(data.cmd, data.cmd_args, envp) == -1)
 	{
 		errChild(ERR_CMD, data.cmd);
 		errnum = 127;
@@ -71,19 +74,19 @@ void	freeChild(t_info *data)
 	int	i;
 
 	i = 0;
-	if (data->cmd1_args)
+	if (data->cmd_args)
 	{
-		while (data->cmd1_args[i++])
-			free(data->cmd1_args[i]);
-		free(data->cmd1_args);
+		while (data->cmd_args[i++])
+			free(data->cmd_args[i]);
+		free(data->cmd_args);
 	}
-	i = 0;
-	if (data->cmd2_args)
-	{
-		while (data->cmd2_args[i++])
-			free(data->cmd2_args[i]);
-		free(data->cmd2_args);
-	}
+	// i = 0;
+	// if (data->cmd2_args)
+	// {
+	// 	while (data->cmd2_args[i++])
+	// 		free(data->cmd2_args[i]);
+	// 	free(data->cmd2_args);
+	// }
 	//if(data->cmd)
 		free(data->cmd);
 }

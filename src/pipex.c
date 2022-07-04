@@ -6,26 +6,24 @@
 /*   By: anarodri <anarodri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/02 11:48:21 by anarodri          #+#    #+#             */
-/*   Updated: 2022/07/02 14:53:10 by anarodri         ###   ########.fr       */
+/*   Updated: 2022/07/03 21:24:23 by anarodri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/pipex.h"
 
-void	initPipex(t_info *data, char **envp)
+void	initPipex(t_info *data, char **argv, char **envp)
 {
-//	getSrcFD(argv[1], data);
-//	getDstFD(argv[argc - 1], data);
 	if (pipe(data->end) < 0)
 		errMsg(ERR_PIPE, 1);
 
 	data->child1 = fork();
 	if (data->child1 == 0)
-		firstChild(*data, envp);
+		firstChild(*data, argv, envp);
 
 	data->child2 = fork();
 	if (data->child2 == 0)
-		secondChild(*data, envp);
+		secondChild(*data, argv, envp);
 
 	close(data->end[0]);
 	close(data->end[1]);
@@ -52,9 +50,9 @@ int	main(int argc, char **argv, char **envp)
 	if (data.fd_src < 0 || data.fd_dst < 0)
 		errMsg(ERR_OPEN, -1);
 
-	parseInput(argv, envp, &data);
+	parseEnvp(envp, &data);
 
-	initPipex(&data, envp);
+	initPipex(&data, argv, envp);
 	return (0);
 //	if (data.valid_file != 0)
 //	{

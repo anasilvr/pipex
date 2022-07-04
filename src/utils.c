@@ -6,7 +6,7 @@
 /*   By: anarodri <anarodri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/02 11:48:28 by anarodri          #+#    #+#             */
-/*   Updated: 2022/07/02 15:29:18 by anarodri         ###   ########.fr       */
+/*   Updated: 2022/07/03 21:24:16 by anarodri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,12 +32,12 @@ char	*searchPath(char **envp)
 	return (*envp + 5);
 }
 
-void	parseInput(char **argv, char **envp, t_info *data)
+void	parseEnvp(char **envp, t_info *data)
 {
 	data->envp_PATH = searchPath(envp);
 	data->cmd_path = ft_split(data->envp_PATH, ':');
-	data->cmd1_args = ft_split(argv[2], ' ');
-	data->cmd2_args = ft_split(argv[3], ' ');
+//	data->cmd1_args = ft_split(argv[2], ' ');
+//	data->cmd2_args = ft_split(argv[3], ' ');
 }
 
 char	*getCmdPath (char **cmd_path, char *cmd)
