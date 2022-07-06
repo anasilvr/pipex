@@ -1,29 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strlen.c                                        :+:      :+:    :+:   */
+/*   error.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: anarodri <anarodri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/09/15 11:55:00 by anarodri          #+#    #+#             */
-/*   Updated: 2022/07/06 11:53:07 by anarodri         ###   ########.fr       */
+/*   Created: 2022/07/06 18:01:43 by anarodri          #+#    #+#             */
+/*   Updated: 2022/07/06 18:15:40 by anarodri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-/*
-Return: number of characters that precede the terminating NUL-character.
-*/
+#include "../include/pipex.h"
 
-#include "libft.h"
-
-size_t	ft_strlen(const char *str)
+void	err_msg(const char *msg, int n)
 {
-	size_t	i;
+	perror(msg);
+	exit(n);
+}
 
-	i = 0;
-	if (!str)
-		return (0);
-	while (str[i])
-		i++;
-	return (i);
+void	err_child(const char *msg, char *arg)
+{
+	write(2, msg, ft_strlen(msg));
+	write(2, arg, ft_strlen(arg));
+	write(2, "\n", 1);
 }

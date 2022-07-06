@@ -6,13 +6,13 @@
 #    By: anarodri <anarodri@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/07/02 11:47:41 by anarodri          #+#    #+#              #
-#    Updated: 2022/07/02 13:07:14 by anarodri         ###   ########.fr        #
+#    Updated: 2022/07/06 18:02:10 by anarodri         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME	=	pipex
 
-SRC		=	$(addprefix src/, pipex.c process.c utils.c)
+SRC		=	$(addprefix src/, pipex.c process.c utils.c free.c error.c)
 
 OBJ		=	$(SRC:.c=.o)
 
@@ -30,9 +30,11 @@ $(NAME):	$(OBJ)
 			$(CC) $(CFLAGS) -o $(NAME) $(OBJ) $(LIBINC)
 
 clean:
+			@make clean -C ./libft
 			$(RM) $(OBJ)
 
 fclean:		clean
+			@make fclean -C ./libft
 			$(RM) $(NAME)
 
 re:			fclean $(NAME)

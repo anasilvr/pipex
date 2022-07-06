@@ -6,50 +6,46 @@
 /*   By: anarodri <anarodri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/02 11:48:28 by anarodri          #+#    #+#             */
-/*   Updated: 2022/07/03 21:24:16 by anarodri         ###   ########.fr       */
+/*   Updated: 2022/07/06 18:16:47 by anarodri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/pipex.h"
 
-void	errMsg(const char *msg, int n)
+void	init_struct(t_info *data)
 {
-	perror(msg);
-	exit(n);
+	data->envp_path = NULL;
+	data->cmd = NULL;
+	data->cmd_path = NULL;
+	data->cmd_args = NULL;
+	data->status = 0;
 }
 
-void	errChild(const char *msg, char *arg)
+char	*search_path(char **envp)
 {
-	write(2, msg, ft_strlen(msg));
-	write(2, arg, ft_strlen(arg));
-	write(2, "\n", 1);
-}
-
-char	*searchPath(char **envp)
-{
-	while (ft_strncmp(*envp, "PATH=", 5))
+	while (ft_strncmp("PATH", *envp, 4))
 		envp++;
 	return (*envp + 5);
 }
 
-void	parseEnvp(char **envp, t_info *data)
+void	parse_envp(char **envp, t_info *data)
 {
-	data->envp_PATH = searchPath(envp);
-	data->cmd_path = ft_split(data->envp_PATH, ':');
-//	data->cmd1_args = ft_split(argv[2], ' ');
-//	data->cmd2_args = ft_split(argv[3], ' ');
+	data->envp_path = search_path(envp);
+	data->cmd_path = ft_split(data->envp_path, ':');
 }
 
-char	*getCmdPath (char **cmd_path, char *cmd)
+char	*get_cmdpath(char **cmd_path, char *cmd)
 {
 	char	*tmp;
 	char	*res;
 	int		i;
 
 	i = 0;
-	while (cmd[i])
+	if (!cmd)
+		return (NULL);
+	while (cmd && cmd[i])
 	{
-		if (cmd[0] == '.'|| cmd [i] == '/')
+		if (cmd[0] == '.' || cmd [i] == '/')
 			return (ft_strdup(cmd));
 		i++;
 	}
@@ -63,5 +59,6 @@ char	*getCmdPath (char **cmd_path, char *cmd)
 		free(res);
 		cmd_path++;
 	}
+	free(cmd);
 	return (NULL);
 }
