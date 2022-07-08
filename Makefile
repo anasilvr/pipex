@@ -6,7 +6,7 @@
 #    By: anarodri <anarodri@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/07/02 11:47:41 by anarodri          #+#    #+#              #
-#    Updated: 2022/07/06 18:02:10 by anarodri         ###   ########.fr        #
+#    Updated: 2022/07/08 17:39:27 by anarodri         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,7 +18,7 @@ OBJ		=	$(SRC:.c=.o)
 
 CC		=	gcc
 RM		=	rm -f
-CFLAGS	=	-Wall -Wextra -Werror -g -I./include/
+CFLAGS	=	-Wall -Wextra -Werror -g -I./include/ 
 
 LIBFT	=	cd ./libft && make
 LIBINC	=	./libft/libft.a
