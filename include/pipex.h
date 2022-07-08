@@ -6,7 +6,7 @@
 /*   By: anarodri <anarodri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/02 11:48:36 by anarodri          #+#    #+#             */
-/*   Updated: 2022/07/08 17:25:50 by anarodri         ###   ########.fr       */
+/*   Updated: 2022/07/08 17:57:01 by anarodri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,7 @@ typedef struct s_info
 {
 	int		fd_src;
 	int		fd_dst;
+	int		valid_file;
 	int		end[2];
 	char	*envp_path;
 	char	*cmd;
@@ -55,6 +56,7 @@ typedef struct s_info
 char	*search_path(char **envp);
 char	*get_cmdpath(char **cmd_path, char *cmd);
 
+void	open_filefd(t_info *data, char **argv);
 void	init_struct(t_info *data);
 void	parse_envp(char **envp, t_info *data);
 int		init_pipex(t_info *data, char **argv, char **envp);
