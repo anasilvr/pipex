@@ -6,7 +6,7 @@
 /*   By: anarodri <anarodri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/02 11:48:25 by anarodri          #+#    #+#             */
-/*   Updated: 2022/07/06 18:14:05 by anarodri         ###   ########.fr       */
+/*   Updated: 2022/07/08 17:33:24 by anarodri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,9 +32,13 @@ void	first_child(t_info data, char **argv, char **envp)
 		err_child(data.cmd, ERR_CMD);
 		errnum = 127;
 	}
-	free_child(&data);
 	if (errnum != 0)
+	{
+		free_childfail(&data);
 		exit(errnum);
+	}
+	else
+		free_child(&data);
 }
 
 void	second_child(t_info data, char **argv, char **envp)
@@ -57,7 +61,11 @@ void	second_child(t_info data, char **argv, char **envp)
 		err_child(data.cmd, ERR_CMD);
 		errnum = 127;
 	}
-	free_child(&data);
 	if (errnum != 0)
+	{
+		free_childfail(&data);
 		exit(errnum);
+	}
+	else
+		free_child(&data);
 }

@@ -6,7 +6,7 @@
 /*   By: anarodri <anarodri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/02 11:48:36 by anarodri          #+#    #+#             */
-/*   Updated: 2022/07/06 18:14:33 by anarodri         ###   ########.fr       */
+/*   Updated: 2022/07/08 17:25:50 by anarodri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,7 @@ void	free_struct(t_info *data);
 void	free_2darray(char **arr);
 void	free_child(t_info *data);
 void	free_parent(t_info *data);
+void	free_childfail(t_info *data);
 
 void	err_msg(const char *msg, int n);
 void	err_child(const char *msg, char *arg);

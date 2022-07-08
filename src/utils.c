@@ -6,7 +6,7 @@
 /*   By: anarodri <anarodri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/02 11:48:28 by anarodri          #+#    #+#             */
-/*   Updated: 2022/07/06 18:16:47 by anarodri         ###   ########.fr       */
+/*   Updated: 2022/07/08 17:36:38 by anarodri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,9 @@ void	init_struct(t_info *data)
 
 char	*search_path(char **envp)
 {
-	while (ft_strncmp("PATH", *envp, 4))
+	if (!envp)
+		return (NULL);
+	while (ft_strncmp("PATH=", *envp, 5))
 		envp++;
 	return (*envp + 5);
 }
@@ -54,11 +56,10 @@ char	*get_cmdpath(char **cmd_path, char *cmd)
 		tmp = ft_strjoin(*cmd_path, "/");
 		res = ft_strjoin(tmp, cmd);
 		free(tmp);
-		if (access(res, 0) == 0)
+		if (access(res, X_OK) == 0)
 			return (res);
 		free(res);
 		cmd_path++;
 	}
-	free(cmd);
 	return (NULL);
 }
