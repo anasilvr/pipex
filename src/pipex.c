@@ -6,7 +6,7 @@
 /*   By: anarodri <anarodri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/02 11:48:21 by anarodri          #+#    #+#             */
-/*   Updated: 2022/07/08 18:00:54 by anarodri         ###   ########.fr       */
+/*   Updated: 2022/07/12 12:58:36 by anarodri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 
 int	init_pipex(t_info *data, char **argv, char **envp)
 {
+	printf("[status:%d]\n", data->status);
 	if (pipe(data->end) < 0)
 		err_msg(ERR_PIPE, 1);
 	if (data->valid_file)
@@ -30,6 +31,7 @@ int	init_pipex(t_info *data, char **argv, char **envp)
 	if (data->valid_file)
 		waitpid(data->child1, &data->status, 0);
 	waitpid(data->child2, &data->status, 0);
+	printf("[status:%d]\n", data->status);
 	free_parent(data);
 	if (data->status >> 8 > 0)
 		exit(data->status >> 8);
@@ -63,6 +65,6 @@ int	main(int argc, char **argv, char **envp)
 		init_struct(&data);
 		parse_envp(envp, &data);
 		init_pipex(&data, argv, envp);
-		return (0);
+		exit (EXIT_SUCCESS);
 	}
 }
