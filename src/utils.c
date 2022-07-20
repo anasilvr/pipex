@@ -6,7 +6,7 @@
 /*   By: anarodri <anarodri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/02 11:48:28 by anarodri          #+#    #+#             */
-/*   Updated: 2022/07/08 17:36:38 by anarodri         ###   ########.fr       */
+/*   Updated: 2022/07/19 15:43:46 by anarodri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,17 +23,30 @@ void	init_struct(t_info *data)
 
 char	*search_path(char **envp)
 {
-	if (!envp)
+	int	i;
+
+	i = 0;
+	while (envp[i] != NULL && ft_strnstr(envp[i], "PATH=", 5) == 0)
+		i++;
+	if (envp[i] == NULL)
 		return (NULL);
-	while (ft_strncmp("PATH=", *envp, 5))
-		envp++;
-	return (*envp + 5);
+	else
+		return (envp[i] + 5);
 }
 
 void	parse_envp(char **envp, t_info *data)
 {
+	int	i;
+
+	i = 0;
 	data->envp_path = search_path(envp);
-	data->cmd_path = ft_split(data->envp_path, ':');
+	if (!data->envp_path)
+	{
+		free(data->envp_path);
+		err_msg("ENVP not set. Restart your shell", 127);
+	}
+	else
+		data->cmd_path = ft_split(data->envp_path, ':');
 }
 
 char	*get_cmdpath(char **cmd_path, char *cmd)
@@ -56,7 +69,7 @@ char	*get_cmdpath(char **cmd_path, char *cmd)
 		tmp = ft_strjoin(*cmd_path, "/");
 		res = ft_strjoin(tmp, cmd);
 		free(tmp);
-		if (access(res, X_OK) == 0)
+		if (access(res, F_OK | X_OK) == 0)
 			return (res);
 		free(res);
 		cmd_path++;

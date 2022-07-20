@@ -6,7 +6,7 @@
 /*   By: anarodri <anarodri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/06 18:01:43 by anarodri          #+#    #+#             */
-/*   Updated: 2022/07/08 18:17:49 by anarodri         ###   ########.fr       */
+/*   Updated: 2022/07/19 15:19:48 by anarodri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 
 void	err_msg(const char *msg, int n)
 {
+	errno = n;
 	perror(msg);
 	exit(n);
 }

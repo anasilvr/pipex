@@ -6,7 +6,7 @@
 /*   By: anarodri <anarodri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/06 12:09:16 by anarodri          #+#    #+#             */
-/*   Updated: 2022/07/08 17:33:15 by anarodri         ###   ########.fr       */
+/*   Updated: 2022/07/13 13:25:03 by anarodri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,12 +60,15 @@ void	free_parent(t_info *data)
 	int	i;
 
 	i = 0;
-	while (data->cmd_path[i])
+	if (data->cmd_path)
 	{
-		free(data->cmd_path[i]);
-		i++;
+		while (data->cmd_path[i])
+		{
+			free(data->cmd_path[i]);
+			i++;
+		}
+		free(data->cmd_path);
 	}
-	free(data->cmd_path);
 	close(data->fd_src);
 	close(data->fd_dst);
 }

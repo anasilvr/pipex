@@ -6,7 +6,7 @@
 /*   By: anarodri <anarodri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/02 11:48:36 by anarodri          #+#    #+#             */
-/*   Updated: 2022/07/08 17:57:01 by anarodri         ###   ########.fr       */
+/*   Updated: 2022/07/13 12:13:02 by anarodri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,6 @@
 # define PIPEX_H
 
 # define ERR_ARGC "Invalid number of arguments"
-//# define ERR_OPEN "Open() funtion failed."
 # define ERR_PIPE ": unable to create a pipe"
 # define ERR_CMD ": command not found"
 # define ERR_OPEN ": no such file or directory"
